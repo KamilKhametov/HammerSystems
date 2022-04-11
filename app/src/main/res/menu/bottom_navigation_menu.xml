@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_primary"
-        android:title="Меню"
-        android:icon="@drawable/ic_launcher_foreground"/>
-
-    <item
-        android:id="@+id/action_specialists"
-        android:title="Профиль"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:id="@+id/action_menu"
+        android:title="@string/bottom_navigation_manu_title"
+        android:icon="@drawable/ui_icv_menu"/>
 
     <item
         android:id="@+id/action_profile"
-        android:title="Корзина"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:title="@string/bottom_navigation_profile_title"
+        android:icon="@drawable/ui_icv_profile"/>
+
+    <item
+        android:id="@+id/action_basket"
+        android:title="@string/bottom_navigation_basket_title"
+        android:icon="@drawable/ui_icv_basket"/>
 
 </menu>

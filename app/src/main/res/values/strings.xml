@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HammerSystems</string>
+
+    <string name="bottom_navigation_manu_title">Меню</string>
+    <string name="bottom_navigation_profile_title">Профиль</string>
+    <string name="bottom_navigation_basket_title">Корзина</string>
 </resources>

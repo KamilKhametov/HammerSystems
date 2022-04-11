@@ -62,24 +62,6 @@ class MainFlowFragment: BaseFragment(R.layout.fragment_main_flow) {
         }
     }
 
-    override fun showNavigationMenu(show: Boolean) {
-        with(binding) {
-
-            bottomNavigation.isVisible = show
-
-            val layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
-            )
-
-            layoutParams.bottomMargin =
-                if (show) 56
-                else SIZE_WHEN_BOTTOM_NAVIGATION_HIDDEN
-
-            main.layoutParams = layoutParams
-        }
-    }
-
     private fun selectTab(tab: FlowTab) {
 
         val currentFragment = childFragmentManager.fragments.find { it.isVisible }
@@ -117,9 +99,5 @@ class MainFlowFragment: BaseFragment(R.layout.fragment_main_flow) {
     override fun onBackPressed(): Boolean {
         val fragment = childFragmentManager.fragments.find { it.isVisible }
         return fragment != null && fragment is BaseFragment && fragment.onBackPressed()
-    }
-
-    private companion object{
-        const val SIZE_WHEN_BOTTOM_NAVIGATION_HIDDEN = 0
     }
 }

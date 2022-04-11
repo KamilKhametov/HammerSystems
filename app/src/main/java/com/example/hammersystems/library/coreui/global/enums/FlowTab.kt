@@ -5,17 +5,17 @@ import com.example.hammersystems.R
 
 enum class FlowTab(val itemId: Int, val position: Int, val containerTag: String) {
     MENU(
-        itemId = R.id.action_primary,
+        itemId = R.id.action_menu,
         position = 0,
         containerTag = "MENU_TAB_CONTAINER"
     ),
     PROFILE(
-        itemId = R.id.action_specialists,
+        itemId = R.id.action_profile,
         position = 1,
         containerTag = "PROFILE_TAB_CONTAINER"
     ),
     BASKET(
-        itemId = R.id.action_profile,
+        itemId = R.id.action_basket,
         position = 2,
         containerTag = "BASKET_TAB_CONTAINER"
     );

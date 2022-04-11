@@ -19,7 +19,9 @@
         android:layout_gravity="bottom"
         app:itemIconSize="24dp"
         app:labelVisibilityMode="labeled"
-        android:background="@color/black"
-        app:menu="@menu/bottom_navigation_menu" />
+        android:background="@color/bottom_navigation_background"
+        app:menu="@menu/bottom_navigation_menu"
+        app:itemIconTint="@drawable/bottom_navigation_icon_text_state"
+        app:itemTextColor="@drawable/bottom_navigation_icon_text_state"/>
 
 </FrameLayout>

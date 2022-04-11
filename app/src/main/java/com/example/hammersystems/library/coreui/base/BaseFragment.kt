@@ -10,10 +10,6 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
 
     open val transitionType: TransitionType = TransitionType.HORIZONTAL
 
-    open fun showNavigationMenu(show: Boolean) {
-        (parentFragment as? BaseFragment)?.showNavigationMenu(show = show)
-    }
-
     open fun switchNavigationTab(toPosition: Int) {
         (parentFragment as? BaseFragment)?.switchNavigationTab(toPosition = toPosition)
     }
