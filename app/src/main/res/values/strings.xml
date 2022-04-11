@@ -4,4 +4,6 @@
     <string name="bottom_navigation_manu_title">Меню</string>
     <string name="bottom_navigation_profile_title">Профиль</string>
     <string name="bottom_navigation_basket_title">Корзина</string>
+
+    <string name="buy_btn_title">от %s р</string>
 </resources>
