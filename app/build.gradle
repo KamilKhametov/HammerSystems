@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.10'
 }
 
 android {
@@ -78,4 +79,7 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil:2.0.0-rc02")
+
+    // Fragment ktx
+    implementation("androidx.fragment:fragment-ktx:1.4.0")
 }

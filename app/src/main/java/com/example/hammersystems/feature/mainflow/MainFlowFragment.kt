@@ -1,8 +1,7 @@
 package com.example.hammersystems.feature.mainflow
 
 import android.os.Bundle
-import android.widget.FrameLayout
-import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.hammersystems.R
 import com.example.hammersystems.library.coreui.base.BaseFragment
@@ -11,14 +10,18 @@ import com.example.hammersystems.library.coreui.global.enums.FlowTab
 import com.example.hammersystems.library.coreimpl.navigation.Navigator
 import com.example.hammersystems.library.coreui.global.screens.Screen
 import com.example.hammersystems.feature.tabcontainer.TabContainerFragment
+import com.example.hammersystems.library.coreui.base.BaseMviFragment
 import com.github.terrakok.cicerone.NavigatorHolder
 import dagger.hilt.android.AndroidEntryPoint
+import com.example.hammersystems.feature.mainflow.model.MainFlowViewEvent
+import com.example.hammersystems.feature.mainflow.model.MainFlowViewState
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFlowFragment: BaseFragment(R.layout.fragment_main_flow) {
+class MainFlowFragment: BaseMviFragment<MainFlowViewState, MainFlowViewEvent, MainFlowViewModel>(R.layout.fragment_main_flow) {
 
     private val binding by viewBinding(FragmentMainFlowBinding::bind)
+    override val viewModel by viewModels<MainFlowViewModel>()
 
     @Inject
     lateinit var navigationHolder: NavigatorHolder
@@ -95,6 +98,8 @@ class MainFlowFragment: BaseFragment(R.layout.fragment_main_flow) {
 
         transaction.commitNow()
     }
+
+    override fun render(state: MainFlowViewState) = Unit
 
     override fun onBackPressed(): Boolean {
         val fragment = childFragmentManager.fragments.find { it.isVisible }
