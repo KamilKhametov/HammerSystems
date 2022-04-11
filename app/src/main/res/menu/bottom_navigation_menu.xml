@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_primary"
+        android:title="Меню"
+        android:icon="@drawable/ic_launcher_foreground"/>
+
+    <item
+        android:id="@+id/action_specialists"
+        android:title="Профиль"
+        android:icon="@drawable/ic_launcher_foreground"/>
+
+    <item
+        android:id="@+id/action_profile"
+        android:title="Корзина"
+        android:icon="@drawable/ic_launcher_foreground"/>
+
+</menu>
