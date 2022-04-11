@@ -6,4 +6,6 @@
     <string name="bottom_navigation_basket_title">Корзина</string>
 
     <string name="buy_btn_title">от %s р</string>
+
+    <string name="moscow_title">Москва</string>
 </resources>
