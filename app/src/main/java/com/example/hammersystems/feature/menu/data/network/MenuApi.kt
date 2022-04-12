@@ -1,6 +1,7 @@
 package com.example.hammersystems.feature.menu.data.network
 
 import com.example.hammersystems.feature.menu.data.model.CategoryResponseDto
+import com.example.hammersystems.feature.menu.data.model.ProductResponseDto
 import retrofit2.http.GET
 
 interface MenuApi {
@@ -11,4 +12,11 @@ interface MenuApi {
 
     @GET("fakeApi.json")
     suspend fun getCategories(): List<CategoryResponseDto>
+
+    /**
+     * Метод, для получения списка блюд
+     */
+
+    @GET("showFakeApiProducts")
+    suspend fun getProducts(): List<ProductResponseDto>
 }

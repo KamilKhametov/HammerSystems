@@ -15,6 +15,7 @@ import com.example.hammersystems.feature.menu.presentation.adapters.ProductsAdap
 import com.example.hammersystems.feature.menu.presentation.model.MenuViewEvent
 import com.example.hammersystems.feature.menu.presentation.model.MenuViewState
 import com.example.hammersystems.library.coreui.base.BaseMviFragment
+import com.example.hammersystems.library.coreui.global.extensions.toast
 import com.example.hammersystems.library.coreui.global.extensions.uiLazy
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -52,6 +53,8 @@ class MenuFragment : BaseMviFragment<MenuViewState, MenuViewEvent, MenuViewModel
     override fun render(state: MenuViewState) {
 
         setCategories(categoriesList = state.categories)
+        setProducts(productsList = state.products)
+        renderError(error = state.error)
     }
 
     private fun initBannersAdapter(){
@@ -72,54 +75,15 @@ class MenuFragment : BaseMviFragment<MenuViewState, MenuViewEvent, MenuViewModel
     }
 
     private fun initProductsAdapter(){
-        val productsList = arrayListOf<ProductEntity>(
-            ProductEntity(
-                id = "1",
-                imageUrl = "",
-                name = "Ветчина и грибы",
-                description = "Ветчина,шампиньоны, увеличинная порция моцареллы, томатный соус",
-                quantity = 345
-            ),
-            ProductEntity(
-                id = "2",
-                imageUrl = "",
-                name = "Баварские колбаски",
-                description = "Баварские колбаски, ветчина,пикантная пепперони, острая чоризо,томатный соус",
-                quantity = 345
-            ),
-            ProductEntity(
-                id = "2",
-                imageUrl = "",
-                name = "Баварские колбаски",
-                description = "Баварские колбаски, ветчина,пикантная пепперони, острая чоризо,томатный соус",
-                quantity = 345
-            ),
-            ProductEntity(
-                id = "2",
-                imageUrl = "",
-                name = "Баварские колбаски",
-                description = "Баварские колбаски, ветчина,пикантная пепперони, острая чоризо,томатный соус",
-                quantity = 345
-            ),
-            ProductEntity(
-                id = "2",
-                imageUrl = "",
-                name = "Баварские колбаски",
-                description = "Баварские колбаски, ветчина,пикантная пепперони, острая чоризо,томатный соус",
-                quantity = 345
-            ),
-            ProductEntity(
-                id = "2",
-                imageUrl = "",
-                name = "Баварские колбаски",
-                description = "Баварские колбаски, ветчина,пикантная пепперони, острая чоризо,томатный соус",
-                quantity = 345
-            )
-        )
-        with(binding.recyclerViewProducts) {
-            productsAdapter.setProducts(productsList)
-            adapter = productsAdapter
-        }
+        binding.recyclerViewProducts.adapter = productsAdapter
+    }
+
+    private fun setProducts(productsList: List<ProductEntity>){
+        productsAdapter.setProducts(productsList.toList())
+    }
+
+    private fun renderError(error: String){
+        toast(error)
     }
 
     private fun onCategoryClick(position: Int) {
