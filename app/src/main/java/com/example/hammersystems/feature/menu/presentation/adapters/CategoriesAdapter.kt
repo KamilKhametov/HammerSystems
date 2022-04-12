@@ -7,7 +7,9 @@ import com.example.hammersystems.R
 import com.example.hammersystems.databinding.ItemCategoryBinding
 import com.example.hammersystems.feature.menu.domain.model.CategoryEntity
 
-class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
+class CategoriesAdapter(
+    private val onCategoryClick: (selectedPosition: Int) -> Unit
+) : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
 
     private var selectedItemPos = 0
     private var lastItemSelectedPos = -1
@@ -64,7 +66,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewH
                         notifyItemChanged(selectedItemPos, Unit)
                     }
 
-//                appealPackageClick.invoke(model.name)
+                    onCategoryClick.invoke(selectedItemPos)
                 }
             }
         }

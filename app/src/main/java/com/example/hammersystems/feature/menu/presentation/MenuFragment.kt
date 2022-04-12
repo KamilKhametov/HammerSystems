@@ -1,6 +1,8 @@
 package com.example.hammersystems.feature.menu.presentation
 
+import android.os.Handler
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.hammersystems.R
@@ -14,7 +16,10 @@ import com.example.hammersystems.feature.menu.presentation.model.MenuViewEvent
 import com.example.hammersystems.feature.menu.presentation.model.MenuViewState
 import com.example.hammersystems.library.coreui.base.BaseMviFragment
 import com.example.hammersystems.library.coreui.global.extensions.uiLazy
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
+@AndroidEntryPoint
 class MenuFragment : BaseMviFragment<MenuViewState, MenuViewEvent, MenuViewModel>(R.layout.fragment_menu) {
 
     private val binding by viewBinding<FragmentMenuBinding>()
@@ -25,22 +30,28 @@ class MenuFragment : BaseMviFragment<MenuViewState, MenuViewEvent, MenuViewModel
     }
 
     private val categoriesAdapter by uiLazy {
-        CategoriesAdapter()
+        CategoriesAdapter {
+            onCategoryClick(it)
+        }
     }
 
     private val productsAdapter by uiLazy {
         ProductsAdapter()
     }
 
+    private var swipeTimer: Timer? = null
+
     override fun setupUi() {
 
         initBannersAdapter()
         initCategoriesAdapter()
         initProductsAdapter()
+        setTimerForBanners()
     }
 
     override fun render(state: MenuViewState) {
 
+        setCategories(categoriesList = state.categories)
     }
 
     private fun initBannersAdapter(){
@@ -53,28 +64,11 @@ class MenuFragment : BaseMviFragment<MenuViewState, MenuViewEvent, MenuViewModel
     }
 
     private fun initCategoriesAdapter(){
-        val categoriesList = arrayListOf<CategoryEntity>(
-            CategoryEntity(
-                "1",
-                "Пицца"
-            ),
-            CategoryEntity(
-                "2",
-                "Комбо"
-            ),
-            CategoryEntity(
-                "3",
-                "Десерты"
-            ),
-            CategoryEntity(
-                "4",
-                "Напитки"
-            )
-        )
-        with(binding.recyclerViewCategories){
-            categoriesAdapter.setCategories(categoriesList)
-            adapter = categoriesAdapter
-        }
+        binding.recyclerViewCategories.adapter = categoriesAdapter
+    }
+
+    private fun setCategories(categoriesList: List<CategoryEntity>){
+        categoriesAdapter.setCategories(categoriesList)
     }
 
     private fun initProductsAdapter(){
@@ -122,11 +116,50 @@ class MenuFragment : BaseMviFragment<MenuViewState, MenuViewEvent, MenuViewModel
                 quantity = 345
             )
         )
-        with(binding.recyclerViewProducts){
+        with(binding.recyclerViewProducts) {
             productsAdapter.setProducts(productsList)
             adapter = productsAdapter
         }
     }
 
+    private fun onCategoryClick(position: Int) {
+        with(binding) {
+            val centerOfScreen = recyclerViewCategories.width / 3
+            (recyclerViewCategories.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
+                position,
+                centerOfScreen
+            )
+        }
+    }
+
+    private fun setTimerForBanners() {
+
+        with(binding.recyclerViewBanners) {
+            val sliderHandler = Handler()
+            val sliderRunnable = Runnable {
+                val position =
+                    (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                if (position + 1 >= bannersAdapter.itemCount) {
+                    smoothScrollToPosition(0)
+                } else {
+                    smoothScrollToPosition(position + 1)
+                }
+            }
+
+            swipeTimer = Timer()
+            swipeTimer?.schedule(object : TimerTask() {
+                override fun run() {
+                    sliderHandler.post(sliderRunnable)
+                }
+            }, IMAGE_SLIDE_DELAY, IMAGE_SLIDE_PERIOD)
+        }
+    }
+
     override fun onBackPressed() = false
+
+    private companion object{
+
+        private const val IMAGE_SLIDE_DELAY = 0L
+        private const val IMAGE_SLIDE_PERIOD = 3000L
+    }
 }
