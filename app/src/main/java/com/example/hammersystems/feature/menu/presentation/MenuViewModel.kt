@@ -3,7 +3,7 @@ package com.example.hammersystems.feature.menu.presentation
 import com.example.hammersystems.feature.menu.domain.repository.MenuRepository
 import com.example.hammersystems.feature.menu.presentation.model.MenuViewEvent
 import com.example.hammersystems.feature.menu.presentation.model.MenuViewState
-import com.example.hammersystems.library.coreimpl.locale.SharedPreferencesStorage
+import com.example.hammersystems.library.coreimpl.database.ProductsDao
 import com.example.hammersystems.library.coreui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.lang.Exception
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MenuViewModel @Inject constructor(
     private val repository: MenuRepository,
-    private val sPref: SharedPreferencesStorage
+    private val productsDao: ProductsDao
 ) : BaseViewModel<MenuViewState, MenuViewEvent>(
     initialState = MenuViewState.retrieveDefaultState()
 ) {
@@ -31,12 +31,14 @@ class MenuViewModel @Inject constructor(
                     copy(categories = categoriesList)
                 }
 
-                sPref.lastCategories = categoriesList
+                productsDao.insertCategories(categoriesList)
             }catch (e: Exception){
+                val localCategories = productsDao.getCategories()
+
                 updateStateFromIo {
                     copy(
-                        categories = sPref.lastCategories,
-                        error = "Нет подключения к интернету"
+                        categories = localCategories,
+                        error = "Нет подключения к интернету. Загружены локальные данные"
                     )
                 }
             }
@@ -52,19 +54,19 @@ class MenuViewModel @Inject constructor(
                     copy(products = productsList)
                 }
 
-                sPref.lastProducts = productsList
+                productsDao.insertProducts(productsList)
             }catch (e: Exception){
+                val localProducts = productsDao.getProducts()
+
                 updateStateFromIo {
                     copy(
-                        products = sPref.lastProducts,
-                        error = "Нет подключения к интернету"
+                        products = localProducts,
+                        error = "Нет подключения к интернету. Загружены локальные данные"
                     )
                 }
             }
         }
     }
 
-    override fun observe(event: MenuViewEvent) {
-
-    }
+    override fun observe(event: MenuViewEvent) {}
 }

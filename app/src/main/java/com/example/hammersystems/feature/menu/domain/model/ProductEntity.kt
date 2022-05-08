@@ -1,7 +1,11 @@
 package com.example.hammersystems.feature.menu.domain.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "products")
 data class ProductEntity(
-    val id: String,
+    @PrimaryKey val id: String,
     val imageUrl: String,
     val name: String,
     val description: String,

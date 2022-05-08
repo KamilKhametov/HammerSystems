@@ -31,8 +31,8 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
+    override fun onResume() {
+        super.onResume()
         navigationHolder.setNavigator(navigator)
     }
 
